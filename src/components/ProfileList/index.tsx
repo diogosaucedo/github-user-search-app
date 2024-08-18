@@ -9,6 +9,7 @@ const ProfileList = ({ favorites, setFavorites }: ProfileListProps) => {
   const removeFavorite = (login: string) => {
     setFavorites(favorites.filter((f) => f.login !== login));
   };
+
   return (
     <div className="flex-col w-full p-8 bg-slate-700 rounded-lg flex gap-4">
       {favorites.map((user) => (

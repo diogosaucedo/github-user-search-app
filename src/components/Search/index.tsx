@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { User } from "../../models";
 
-// Definindo a interface para as props
 interface SearchProps {
   setUser: (user: User | undefined) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ setUser }) => {
-  // fetch user by username with github API
   const fetchUserByUsername = async (
     username: string
   ): Promise<User | undefined> => {
@@ -26,9 +24,9 @@ const Search: React.FC<SearchProps> = ({ setUser }) => {
 
   const handleClick = async () => {
     if (!username) return;
-    const user = await fetchUserByUsername(username);
-    setUser(user); // Agora você pode chamar setUser aqui
-  }
+    const user = await fetchUserByUsername(username.trim());
+    setUser(user);
+  };
 
   const [username, setUsername] = useState<string>();
 
@@ -41,7 +39,10 @@ const Search: React.FC<SearchProps> = ({ setUser }) => {
         type="text"
         placeholder="Search for developers..."
       />
-      <button onClick={handleClick} className="text-slate-100 bg-blue-700 w-24 h-11 rounded-lg">
+      <button
+        onClick={handleClick}
+        className="text-slate-100 bg-blue-700 w-24 h-11 rounded-lg"
+      >
         Search
       </button>
     </div>

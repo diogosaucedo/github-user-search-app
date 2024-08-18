@@ -5,16 +5,19 @@ interface ProfilePros {
   favorites: User[];
   setFavorites: (user: User[] | undefined) => void;
 }
+
 const Profile = ({ user, favorites, setFavorites }: ProfilePros) => {
   const handleFavoriteClick = (user: User) => {
     setFavorites([user, ...favorites]);
   };
+
   const dataFormatada = new Date(user.created_at).toLocaleDateString("pt-BR", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
   return (
     <div className="w-full p-8 bg-slate-700 rounded-lg flex gap-4">
       <div>
