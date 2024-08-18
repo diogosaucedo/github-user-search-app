@@ -1,57 +1,61 @@
-const Profile = () => {
+import { User } from "../../models";
+
+interface ProfilePros {
+  user: User;
+  favorites: User[];
+  setFavorites: (user: User[] | undefined) => void;
+}
+const Profile = ({ user, favorites, setFavorites }: ProfilePros) => {
+  const handleFavoriteClick = (user: User) => {
+    setFavorites([user, ...favorites]);
+  };
+  const dataFormatada = new Date(user.created_at).toLocaleDateString("pt-BR", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <div className="w-full p-8 bg-slate-700 rounded-lg flex gap-4">
       <div>
         <img
-          className="w-28"
-          src="./image-user-placeholder.png"
+          className="w-28 rounded-full"
+          src={user.avatar_url}
           alt="Placeholder"
         />
       </div>
       <div className="w-full flex flex-col gap-4">
         <div className="flex justify-between">
           <div>
-            <h1 className="text-gray-200 text-2xl font-bold">John Doe</h1>
-            <p className="text-blue-600 text-sm">Software Engineer</p>
-            <p className="text-gray-400 text-sm">This profile has no bio.</p>
+            <h1 className="text-gray-200 text-2xl font-bold">{user.name}</h1>
+            <p className="text-gray-300 text-sm">{user.company}</p>
+            <p className="text-gray-400 text-sm">{user.bio}</p>
           </div>
           <div>
-            <p className="text-gray-200">Joined 25 Jan 2012</p>
+            <p className="text-gray-200 text-sm">{dataFormatada}</p>
           </div>
         </div>
         <div className="bg-slate-900 p-4 rounded-lg flex w-full justify-between">
           <div className="text-gray-300">
             <p className="text-base">Repos</p>
-            <p className="text-2xl">8</p>
+            <p className="text-2xl">{user.public_repos}</p>
           </div>
           <div className="text-gray-300">
             <p className="text-base">Followers</p>
-            <p className="text-2xl">3965</p>
+            <p className="text-2xl">{user.followers}</p>
           </div>
           <div className="text-gray-300">
             <p className="text-base">Following</p>
-            <p className="text-2xl">9</p>
+            <p className="text-2xl">{user.following}</p>
           </div>
         </div>
         <div>
-          <div className="grid grid-cols-2 text-slate-200 gap-6">
-            <div className="flex gap-3 h-6 items-center">
-              <img src="./icon-location.svg" alt="Location" />
-              <p>San Francisco</p>
-            </div>
-            <div className="flex gap-3 h-6 items-center">
-              <img src="./icon-location.svg" alt="Location" />
-              <p>San Francisco</p>
-            </div>
-            <div className="flex gap-3 h-6 items-center">
-              <img src="./icon-location.svg" alt="Location" />
-              <p>San Francisco</p>
-            </div>
-            <div className="flex gap-3 h-6 items-center">
-              <img src="./icon-location.svg" alt="Location" />
-              <p>San Francisco</p>
-            </div>
-          </div>
+          <button
+            onClick={() => handleFavoriteClick(user)}
+            className="text-slate-100 bg-blue-700 w-60 h-11 rounded-lg"
+          >
+            Add to favorites
+          </button>
         </div>
       </div>
     </div>
