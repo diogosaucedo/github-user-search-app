@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { User } from "../../models";
 
 import { deleteUser } from "../../store/reducers/user";
 import { RootState } from "../../store";
@@ -11,7 +10,7 @@ const ProfileList = () => {
   return (
     <div className="flex-col w-full p-8 bg-slate-700 rounded-lg flex gap-4">
       {favorites.length != 0 ? (
-        favorites.map((user: User) => (
+        favorites.map((user) => (
           <div className="flex gap-4 bg-gray-900 p-2 rounded-lg w-full justify-between items-center">
             <img
               className="w-16 rounded-full"
