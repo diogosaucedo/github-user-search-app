@@ -1,15 +1,13 @@
+import { useDispatch } from "react-redux";
 import { User } from "../../models";
+import { addUser } from "../../store/reducers/user";
 
 interface ProfilePros {
   user: User;
-  favorites: User[];
-  setFavorites: (user: User[] | undefined) => void;
 }
 
-const Profile = ({ user, favorites, setFavorites }: ProfilePros) => {
-  const handleFavoriteClick = (user: User) => {
-    setFavorites([user, ...favorites]);
-  };
+const Profile = ({ user }: ProfilePros) => {
+  const dispatch = useDispatch();
 
   const dataFormatada = new Date(user.created_at).toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -54,7 +52,7 @@ const Profile = ({ user, favorites, setFavorites }: ProfilePros) => {
         </div>
         <div>
           <button
-            onClick={() => handleFavoriteClick(user)}
+            onClick={() => dispatch(addUser(user))}
             className="text-slate-100 bg-blue-700 w-60 h-11 rounded-lg"
           >
             Add to favorites
